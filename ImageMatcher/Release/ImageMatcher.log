@@ -1,0 +1,10 @@
+﻿  Detector.cpp
+  FeatureExtractor.cpp
+     Creating library C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.lib and object C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.exp
+  Generating code
+  3 of 646 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    25 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.dll
+  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.pdb (Full PDB)
