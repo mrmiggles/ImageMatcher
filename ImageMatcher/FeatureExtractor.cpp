@@ -36,7 +36,7 @@ char * FeatureExtractor::getDescriptorsAsString()
 		for (int j = 0; j<descriptors.cols; j++) {
 			//text += com + std::to_string(descriptorsA.at<float>(i, j)); //losing precision
 			std::ostringstream out;
-			out << descriptors.ptr(i)[j]; //descriptors.at<float>(i, j);
+			out << descriptors.at<float>(i, j);//descriptors.ptr(i)[j];
 			text += com + out.str();
 			out.clear();
 			com = ",";
@@ -48,13 +48,16 @@ char * FeatureExtractor::getDescriptorsAsString()
 	return descAsChar;
 }
 
-void FeatureExtractor::getDescriptorsAsArray(float *buf)
+
+void FeatureExtractor::getDescriptorsAsArray(float **buf)
 {
-	buf = new float[descriptors.rows * descriptors.cols];
+	//buf = new float[descriptors.rows * descriptors.cols];
+ 
 	int cols = descriptors.cols;
 	for (int i = 0; i < descriptors.rows; i++) {
 		for (int j = 0; j<descriptors.cols; j++) {
-			buf[i* cols + j] = descriptors.ptr(i)[j]; 
+			//cout << "inserting at index: " << (i*cols) + j << " value: " << descriptors.at<float>(i, j) << endl;
+			(*buf)[(i* cols) + j] = descriptors.at<float>(i, j);//descriptors.ptr(i)[j];
 		}
 	}
 }

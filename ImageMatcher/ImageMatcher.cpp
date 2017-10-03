@@ -36,6 +36,17 @@ extern "C" {
 		return NULL;
 	}
 
+	DECLDIR void getDescriptorsAsArray(float **vals) {
+		int size = fe.getDescriptors().rows * fe.getDescriptors().cols;
+		*vals = new float[fe.getDescriptors().rows * fe.getDescriptors().cols];
+		fe.getDescriptorsAsArray(vals);
+	}
+
+	DECLDIR void cleanUp(float* somepointer) {
+		free(somepointer);
+	}
+
+	/* Testing Function for comparing two images */
 	DECLDIR void testMatching(void *buf1, int h1, int w1, void *buf2, int h2, int w2) {
 		Matcher matcher;
 		matcher.setMatcher(1);
