@@ -13,9 +13,15 @@ public:
 	void setKeypointsAndDescriptors(cv::Ptr<FeatureDetector> detector);
 	void getDescriptorsAsString(char *);
 	char *getDescriptorsAsString();
-	void getDescriptorsAsArray(float **buf);
+	void getDescriptorsRows(int *r);
+	void getDescriptorsCols(int *c);
+	void getDescriptorsByReference(float **buf);
+	void fillDescriptorArray(float *buf);
 	void printDescriptors();
 	Mat getDescriptors();
+
+	void fillKeypointsArray(float *buf);
+	void getKeypointsSize(int * r);
 	vector<cv::KeyPoint> getKeypoints();
 
 	FeatureExtractor();

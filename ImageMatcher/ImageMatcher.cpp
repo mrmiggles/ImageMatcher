@@ -36,13 +36,33 @@ extern "C" {
 		return NULL;
 	}
 
-	DECLDIR void getDescriptorsAsArray(float **vals) {
-		int size = fe.getDescriptors().rows * fe.getDescriptors().cols;
-		*vals = new float[fe.getDescriptors().rows * fe.getDescriptors().cols];
-		fe.getDescriptorsAsArray(vals);
+	DECLDIR void fillDescriptorArray(float *buf) {
+		fe.fillDescriptorArray(buf);
 	}
 
-	DECLDIR void cleanUp(float* somepointer) {
+	DECLDIR void getDescriptorRows(int* r) {
+		 fe.getDescriptorsRows(r);
+	}
+
+	DECLDIR void getDescriptorCols(int* c) {
+		fe.getDescriptorsCols(c);
+	}
+
+	DECLDIR void getKeypointsSize(int* c) {
+		fe.getKeypointsSize(c);
+	}
+
+	DECLDIR void fillKeypointsArray(float *buf) {
+		fe.fillKeypointsArray(buf);
+	}
+
+	DECLDIR void getDescriptorsByReference(float **vals) {
+		int size = fe.getDescriptors().rows * fe.getDescriptors().cols;
+		*vals = new float[fe.getDescriptors().rows * fe.getDescriptors().cols];
+		fe.getDescriptorsByReference(vals);
+	}
+
+	DECLDIR void freeUp(float* somepointer) {
 		free(somepointer);
 	}
 

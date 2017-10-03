@@ -22,7 +22,7 @@ void FeatureExtractor::getDescriptorsAsString(char *)
 }
 
 
-
+/* Don't use in production. You don't have a way of freeing what's returned here */
 char * FeatureExtractor::getDescriptorsAsString()
 {
 	cout << "rows: " << descriptors.rows << endl;
@@ -36,7 +36,7 @@ char * FeatureExtractor::getDescriptorsAsString()
 		for (int j = 0; j<descriptors.cols; j++) {
 			//text += com + std::to_string(descriptorsA.at<float>(i, j)); //losing precision
 			std::ostringstream out;
-			out << descriptors.at<float>(i, j);//descriptors.ptr(i)[j];
+			out << (descriptors.ptr<float>(i))[j];
 			text += com + out.str();
 			out.clear();
 			com = ",";
@@ -48,16 +48,37 @@ char * FeatureExtractor::getDescriptorsAsString()
 	return descAsChar;
 }
 
-
-void FeatureExtractor::getDescriptorsAsArray(float **buf)
+void FeatureExtractor::getDescriptorsRows(int *r)
 {
-	//buf = new float[descriptors.rows * descriptors.cols];
- 
+	*r = descriptors.rows;
+}
+
+void FeatureExtractor::getDescriptorsCols(int *c)
+{
+	*c = descriptors.cols;
+}
+
+
+void FeatureExtractor::getDescriptorsByReference(float **buf)
+{
 	int cols = descriptors.cols;
 	for (int i = 0; i < descriptors.rows; i++) {
 		for (int j = 0; j<descriptors.cols; j++) {
 			//cout << "inserting at index: " << (i*cols) + j << " value: " << descriptors.at<float>(i, j) << endl;
-			(*buf)[(i* cols) + j] = descriptors.at<float>(i, j);//descriptors.ptr(i)[j];
+			(*buf)[(i* cols) + j] = (descriptors.ptr<float>(i))[j];
+		}
+	}
+}
+
+/*
+* in Java you will pass 'float[] p' to this function
+*/
+void FeatureExtractor::fillDescriptorArray(float * buf)
+{
+	int cols = descriptors.cols;
+	for (int i = 0; i < descriptors.rows; i++) {
+		for (int j = 0; j<descriptors.cols; j++) {
+			buf[(i* cols) + j] = (descriptors.ptr<float>(i))[j]; //descriptors.at<float>(i, j);
 		}
 	}
 }
@@ -70,7 +91,7 @@ void FeatureExtractor::printDescriptors()
 
 	for (int i = 0; i < descriptors.rows; i++) {
 		for (int j = 0; j<descriptors.cols; j++) {
-			cout << descriptors.at<float>(i, j) << ",";
+			cout << (descriptors.ptr<float>(i))[j] << ",";
 		}
 	}
 }
@@ -78,6 +99,20 @@ void FeatureExtractor::printDescriptors()
 Mat FeatureExtractor::getDescriptors()
 {
 	return descriptors;
+}
+
+void FeatureExtractor::fillKeypointsArray(float * buf)
+{
+	for (int i = 0; i < keyPoints.size(); i+= 2) {
+		//cout << keyPoints.at(i).pt.x << " " << keyPoints.at(i).pt.y << ",";
+		buf[i] = keyPoints.at(i).pt.x;
+		buf[i + 1] = keyPoints.at(i).pt.y;
+	}
+}
+
+void FeatureExtractor::getKeypointsSize(int *r)
+{
+	*r = keyPoints.size();
 }
 
 vector<cv::KeyPoint> FeatureExtractor::getKeypoints()
