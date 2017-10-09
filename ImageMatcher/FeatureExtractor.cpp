@@ -35,7 +35,8 @@ char * FeatureExtractor::getDescriptorsAsString()
 	for (int i = 0; i < descriptors.rows; i++) {
 		for (int j = 0; j<descriptors.cols; j++) {
 			//text += com + std::to_string(descriptorsA.at<float>(i, j)); //losing precision
-			std::ostringstream out;
+			//ostringstream is one of the slower types of conversion. Boost library has some options
+			std::ostringstream out; 
 			out << (descriptors.ptr<float>(i))[j];
 			text += com + out.str();
 			out.clear();
@@ -56,6 +57,11 @@ void FeatureExtractor::getDescriptorsRows(int *r)
 void FeatureExtractor::getDescriptorsCols(int *c)
 {
 	*c = descriptors.cols;
+}
+
+void FeatureExtractor::getDescriptorsType(int * c)
+{
+	*c = descriptors.type();
 }
 
 

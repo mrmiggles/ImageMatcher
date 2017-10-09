@@ -34,6 +34,7 @@
 #include "FeatureExtractor.h"
 #include "Detector.h"
 #include "Matcher.h"
+#include "Subject.h"
 
 using namespace std;
 using namespace cv;

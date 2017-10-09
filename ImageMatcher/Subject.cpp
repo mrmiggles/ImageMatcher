@@ -14,7 +14,12 @@ Mat Subject::getImage()
 
 void Subject::setKeypoints(vector<cv::KeyPoint> kp)
 {
-	keypointsA = kp;
+	keypoints = kp;
+}
+
+void Subject::setDescriptorsFromFloatBuffer(float *descs, int rows, int cols, int matType)
+{
+	descriptors = cv::Mat(rows, cols, matType, descs);
 }
 
 
@@ -30,29 +35,28 @@ void Subject::addToKeyPoints(float x, float y) {
 
 Mat Subject::getDescriptors()
 {
-	return descriptorsA;
+	return descriptors;
 }
 
 vector<cv::KeyPoint> Subject::getKeypoints()
 {
-	return keypointsA;
+	return keypoints;
 }
 
 void Subject::printDescriptors() {
-	cout << descriptorsA << endl;
+	cout << descriptors << endl;
 }
 
 void Subject::checkSubjectKeypoints() {
-	cout << "Subject Keypoints: " << keypointsA.size() << endl;
-	cout << "Subject Descriptors: " << descriptorsA.size() << endl;
+	cout << "Subject Keypoints: " << keypoints.size() << endl;
+	cout << "Subject Descriptors: " << descriptors.size() << endl;
 }
 
 void Subject::cleanUp()
 {
-	keypointsA.clear();
-	descriptorsA.release();
+	keypoints.clear();
+	descriptors.release();
 	subjectImage.release();
-	clearDescAsChar();
 }
 
 Subject::Subject()

@@ -8,6 +8,7 @@ extern "C" {
 	Ptr<FeatureDetector> detector;
 	Matcher matcher;
 	FeatureExtractor fe;
+	Subject subject;
 	char *mt;
 
 	/* Set detector type */
@@ -48,6 +49,10 @@ extern "C" {
 		fe.getDescriptorsCols(c);
 	}
 
+	DECLDIR void getDescriptorsType(int* c) {
+		fe.getDescriptorsType(c);
+	}
+
 	DECLDIR void getKeypointsSize(int* c) {
 		fe.getKeypointsSize(c);
 	}
@@ -66,10 +71,25 @@ extern "C" {
 		free(somepointer);
 	}
 
+	/*
+	 *
+	 * Functions to setup Subject we are searching for in a scene (other image)
+	 *
+	*/
+
+	DECLDIR void setSubjectDescriptors(float *descs, int rows, int cols, int type) {
+		subject.setDescriptorsFromFloatBuffer(descs, rows, cols, type);
+	}
+
+	DECLDIR void printSubjectDescriptors() {
+		subject.printDescriptors();
+	}
+
+
 	/* Testing Function for comparing two images */
 	DECLDIR void testMatching(void *buf1, int h1, int w1, void *buf2, int h2, int w2) {
-		Matcher matcher;
-		matcher.setMatcher(1);
+		//Matcher matcher;
+		//matcher.setMatcher(1);
 
 		FeatureExtractor im1;
 		im1.setImage(buf1, h1, w1);
@@ -83,7 +103,7 @@ extern "C" {
 		bool ev = matcher.checkIfGoodMatch();
 		matcher.paintGoodMatches(im1.getImage(), im2.getImage(), im1.getKeypoints(), im2.getKeypoints());
 
-		im1.printDescriptors();
+		//im1.printDescriptors();
 
 	}
 

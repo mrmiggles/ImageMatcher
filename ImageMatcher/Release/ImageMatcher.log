@@ -1,10 +1,9 @@
-﻿  FeatureExtractor.cpp
-FeatureExtractor.cpp(106): warning C4018: '<': signed/unsigned mismatch
-     Creating library C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.lib and object C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.exp
+﻿  ImageMatcher.cpp
+     Creating library C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.lib and object C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.exp
   Generating code
-  2 of 661 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    22 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.dll
-  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.pdb (Full PDB)
+  92 of 675 functions (13.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    48 functions had inline decision re-evaluated but remain unchanged
+  ImageMatcher.vcxproj -> C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.dll
+  ImageMatcher.vcxproj -> C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.pdb (Full PDB)

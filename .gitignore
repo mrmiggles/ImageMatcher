@@ -3,5 +3,4 @@ Release/ImageMatcher.dll
 Release/opencv_contrib_world330.dll
 Release/opencv_world330.dll
 ImageMatcher.VC.db
-ipch/IMAGEMATCHER-76f6b0f9/IMAGEMATCHER-96aac66d.ipch
-ipch/IMAGEMATCHER-76f6b0f9/IMAGEMATCHER-ce14d273.ipch
+*.ipch

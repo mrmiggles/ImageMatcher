@@ -7,16 +7,12 @@ public:
 	Mat getImage();
 
 	void setKeypoints(vector<cv::KeyPoint> kp);
+	void setDescriptorsFromFloatBuffer(float *kpts, int rows, int cols, int matType);
 	void addToKeyPoints(float x, float y);
+	Mat getDescriptors();
 	vector<cv::KeyPoint> getKeypoints();
 	void printDescriptors();
 	void checkSubjectKeypoints();
-
-	void setDescriptors(Mat ds);
-	void MatToBytes();
-	cv::Mat BytesToMat();
-	Mat getDescriptors();
-	void clearDescAsChar();
 
 	void cleanUp();
 	Subject();
@@ -24,7 +20,7 @@ public:
 
 private:
 	Mat subjectImage;
-	vector<cv::KeyPoint> keypointsA;
-	Mat descriptorsA;
+	vector<cv::KeyPoint> keypoints;
+	Mat descriptors;
 
 };

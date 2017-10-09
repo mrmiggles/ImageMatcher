@@ -15,6 +15,7 @@ public:
 	char *getDescriptorsAsString();
 	void getDescriptorsRows(int *r);
 	void getDescriptorsCols(int *c);
+	void getDescriptorsType(int *c);
 	void getDescriptorsByReference(float **buf);
 	void fillDescriptorArray(float *buf);
 	void printDescriptors();
