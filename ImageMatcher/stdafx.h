@@ -30,15 +30,20 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
 
+
 //custom libraries
 #include "FeatureExtractor.h"
 #include "Detector.h"
 #include "Matcher.h"
+#include "MatchResult.h"
 #include "Subject.h"
+#include "HashCompare.h"
+//#include "HashComparitor.h"
 
 using namespace std;
 using namespace cv;
 using namespace cv::xfeatures2d;
+
 
 extern "C"
 {

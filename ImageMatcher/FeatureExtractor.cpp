@@ -7,7 +7,7 @@ void FeatureExtractor::setImage(void * buf, int height, int width)
 	image.data = (uchar *)buf;
 }
 
-Mat FeatureExtractor::getImage()
+Mat& FeatureExtractor::getImage()
 {
 	return image;
 }
@@ -102,7 +102,13 @@ void FeatureExtractor::printDescriptors()
 	}
 }
 
-Mat FeatureExtractor::getDescriptors()
+void FeatureExtractor::cleanup()
+{
+	descriptors.release();
+	image.release();
+}
+
+Mat& FeatureExtractor::getDescriptors()
 {
 	return descriptors;
 }
