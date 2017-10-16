@@ -18,13 +18,14 @@ void Matcher::setMatcher(int type)
 	cout << mt << " Matcher set" << endl;
 }
 
-void Matcher::findMatches(Mat descriptorsA, Mat descriptorsB)
+void Matcher::findMatches(Mat descriptorsA, Mat descriptorsB, vector<DMatch> &matches)
 {
 	matcher->match(descriptorsA, descriptorsB, matches);
 }
 
-void Matcher::findknnMatches(Mat descriptorsA, Mat descriptorsB)
+void Matcher::findknnMatches(Mat descriptorsA, Mat descriptorsB, vector<vector<DMatch>> &nn_matches)
 {
+	//FLANN based require descriptors to be of type CV_32F
 	if (mt == "FLANN") {
 		cout << "converting to CV_32F" << endl;
 		descriptorsA.convertTo(descriptorsA, CV_32F);
@@ -33,40 +34,15 @@ void Matcher::findknnMatches(Mat descriptorsA, Mat descriptorsB)
 	matcher->knnMatch(descriptorsA, descriptorsB, nn_matches, 2);
 }
 
-bool Matcher::checkIfGoodMatch() {
-	int count = 0;
+bool Matcher::checkIfGoodMatch(vector<vector<DMatch>> &nn_matches, vector<DMatch> &good_matches) {
+
 	for (size_t i = 0; i < nn_matches.size(); i++) {
 		DMatch first = nn_matches[i][0];
 		float dist1 = nn_matches[i][0].distance;
 		float dist2 = nn_matches[i][1].distance;
 
 		if (dist1 < 0.6f * dist2) {
-			count++;
 			//cout << "Acceptable distance between: " << dist1 << " and " << dist2 << endl;
-			good_matches.push_back(first);
-		}
-	}
-
-	if (count > 7) {
-		cout << "Object found!" << endl;
-		return true;
-	}
-	else if (count >= 2) {
-		cout << "Possible Detection. Number of good matches: " << count << endl;
-	}
-	else {
-		cout << "Object not found!" << endl;
-		return false;
-	}
-}
-bool Matcher::checkIfGoodMatch(float nndrRatio) {
-
-	for (size_t i = 0; i < nn_matches.size(); i++) {
-		DMatch first = nn_matches[i][0];
-		float dist1 = nn_matches[i][0].distance;
-		float dist2 = nn_matches[i][1].distance;
-
-		if (dist1 < nndrRatio * dist2) {
 			good_matches.push_back(first);
 		}
 	}
@@ -80,8 +56,30 @@ bool Matcher::checkIfGoodMatch(float nndrRatio) {
 		return false;
 	}
 }
+bool Matcher::checkIfGoodMatch(float nndrRatio, vector<vector<DMatch>> &nn_matches, vector<DMatch> &good_matches, int *goodMatches) {
+	
+	for (size_t i = 0; i < nn_matches.size(); i++) {
+		DMatch first = nn_matches[i][0];
+		float dist1 = nn_matches[i][0].distance;
+		float dist2 = nn_matches[i][1].distance;
 
-void Matcher::paintGoodMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keypointsA, vector<cv::KeyPoint> keypointsB)
+		if (dist1 < nndrRatio * dist2) {
+			good_matches.push_back(first);
+		}
+	}
+
+	*goodMatches = good_matches.size();
+	if (good_matches.size() > 7) {
+		cout << "Object found!" << endl;
+		return true;
+	}
+	else {
+		cout << "Object not found!" << endl;
+		return false;
+	}
+}
+
+void Matcher::paintGoodMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keypointsA, vector<cv::KeyPoint> keypointsB, vector<DMatch> &good_matches)
 {
 	Mat good;
 	drawMatches(subject, keypointsA, scene, keypointsB, good_matches, good, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
@@ -90,7 +88,8 @@ void Matcher::paintGoodMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keyp
 }
 
 
-bool Matcher::checkGoodMatchWHomography(Mat subjectImage, vector<KeyPoint> kpts1, Mat sceneImage, vector<KeyPoint> kpts2, Mat subjectDescriptors)
+bool Matcher::checkGoodMatchWHomography(Mat subjectImage, vector<KeyPoint> kpts1, Mat sceneImage, vector<KeyPoint> kpts2,
+	Mat subjectDescriptors, vector<DMatch> &matches, vector<DMatch> &good_matches)
 {
 	Mat homography, inlier_mask;
 
@@ -175,7 +174,8 @@ bool Matcher::checkGoodMatchWHomography(Mat subjectImage, vector<KeyPoint> kpts1
 }
 
 /* checkGoodMatchWHomography must be called first */
-void Matcher::drawGoodMatchesWHomography(Mat img_object, Mat img_scene, vector<KeyPoint> keypoints_object, vector<KeyPoint> keypoints_scene, Mat homography) {
+void Matcher::drawGoodMatchesWHomography(Mat img_object, Mat img_scene, vector<KeyPoint> keypoints_object, 
+	vector<KeyPoint> keypoints_scene, vector<DMatch> &good_matches, Mat homography) {
 
 
 	Mat img_matches;
@@ -198,7 +198,6 @@ void Matcher::drawGoodMatchesWHomography(Mat img_object, Mat img_scene, vector<K
 	imshow("Good Matches & Object detection", img_matches);
 	waitKey(0);
 }
-
 
 Ptr<DescriptorMatcher> Matcher::getMatcher()
 {

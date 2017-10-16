@@ -2,14 +2,24 @@
 #include "Subject.h"
 
 
-void Subject::setImage(Mat sI)
+void Subject::setImage(void *buf, int h, int w)
 {
-	subjectImage = sI.clone();
+	image = Mat(h, w, CV_8UC3, Scalar(0, 0, 0));
+	image.data = (uchar *)buf;
 }
 
-Mat Subject::getImage()
+Mat& Subject::getImage()
 {
-	return subjectImage;
+	return image;
+}
+
+Mat& Subject::getHash() {
+	return hash;
+}
+
+void Subject::setHash(const Mat &h)
+{
+	hash = h;
 }
 
 void Subject::setKeypoints(vector<cv::KeyPoint> kp)
@@ -56,7 +66,7 @@ void Subject::cleanUp()
 {
 	keypoints.clear();
 	descriptors.release();
-	subjectImage.release();
+	image.release();
 }
 
 Subject::Subject()

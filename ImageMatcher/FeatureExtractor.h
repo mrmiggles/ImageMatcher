@@ -9,7 +9,7 @@ class FeatureExtractor
 public:
 
 	void setImage(void *buf, int height, int width);
-	cv::Mat getImage();
+	cv::Mat& getImage();
 	void setKeypointsAndDescriptors(cv::Ptr<FeatureDetector> detector);
 	void getDescriptorsAsString(char *);
 	char *getDescriptorsAsString();
@@ -19,7 +19,8 @@ public:
 	void getDescriptorsByReference(float **buf);
 	void fillDescriptorArray(float *buf);
 	void printDescriptors();
-	Mat getDescriptors();
+	void cleanup();
+	Mat& getDescriptors();
 
 	void fillKeypointsArray(float *buf);
 	void getKeypointsSize(int * r);

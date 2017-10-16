@@ -5,21 +5,16 @@
 class Matcher {
 public:
 	
-	vector<DMatch> matches;
-	vector<vector<DMatch>> nn_matches;
-	vector<DMatch> good_matches;
-	vector<KeyPoint> matched1, matched2, inliers1, inliers2;
-
 	void setMatcher(int type);
 	cv::Ptr<DescriptorMatcher>  getMatcher();
-	void findMatches(Mat descriptorsA, Mat descriptorsB);
-	void findknnMatches(Mat descriptorsA, Mat descriptorsB);
-	bool checkIfGoodMatch();
-	bool checkIfGoodMatch(float nndrRatio);
-	bool checkGoodMatchWHomography(Mat subject, vector<KeyPoint> kpts1, Mat scene, vector<KeyPoint> kpts2, Mat subjectDescriptors);
+	void findMatches(Mat descriptorsA, Mat descriptorsB, vector<DMatch> &matches);
+	void findknnMatches(Mat descriptorsA, Mat descriptorsB, vector<vector<DMatch>> &nn_matches);
+	bool checkIfGoodMatch(vector<vector<DMatch>> &nn_matches, vector<DMatch> &good_matches);
+	bool checkIfGoodMatch(float nndrRatio, vector<vector<DMatch>> &nn_matches, vector<DMatch> &good_matches, int *goodMatches);
+	bool checkGoodMatchWHomography(Mat subject, vector<KeyPoint> kpts1, Mat scene, vector<KeyPoint> kpts2, Mat subjectDescriptors, vector<DMatch> &matches, vector<DMatch> &good_matches);
 	void paintMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keypointsA, vector<cv::KeyPoint> keypointsB);
-	void paintGoodMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keypointsA, vector<cv::KeyPoint> keypointsB);
-	void drawGoodMatchesWHomography(Mat img_object, Mat img_scene, vector<KeyPoint> keypoints_object, vector<KeyPoint> keypoints_scene, Mat homography);
+	void paintGoodMatches(Mat subject, Mat scene, vector<cv::KeyPoint> keypointsA, vector<cv::KeyPoint> keypointsB, vector<DMatch> &good_matches);
+	void drawGoodMatchesWHomography(Mat img_object, Mat img_scene, vector<KeyPoint> keypoints_object, vector<KeyPoint> keypoints_scene, vector<DMatch> &good_matches, Mat homography);
 
 	Matcher();
 	~Matcher();
