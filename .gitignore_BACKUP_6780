@@ -1,0 +1,12 @@
+
+Release/ImageMatcher.dll
+Release/opencv_contrib_world330.dll
+Release/opencv_world330.dll
+ImageMatcher.VC.db
+*.ipch
+<<<<<<< HEAD
+*.pch
+=======
+
+Release/opencv_img_hash330.dll
+>>>>>>> d4c97aed7306c7d3a22869d779e12606ef2f853a
