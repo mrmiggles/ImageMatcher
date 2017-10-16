@@ -4,3 +4,4 @@ Release/opencv_contrib_world330.dll
 Release/opencv_world330.dll
 ImageMatcher.VC.db
 *.ipch
+*.pch
