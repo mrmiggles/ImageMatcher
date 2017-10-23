@@ -7,7 +7,7 @@ extern "C" {
 
 	Ptr<FeatureDetector> detector;
 	Matcher matcher;
-	//HashComparitor<PHash> hc;
+	HashComparitor<PHash> hc;
 	FeatureExtractor fe;
 	Subject subject;
 	char *mt;
@@ -80,7 +80,7 @@ extern "C" {
 
 	DECLDIR void setSubjectImage(void *buf, int h, int w) {
 		subject.setImage(buf, h, w);
-		//hc.retrieveHashFromMatImage(subject.getImage(), subject.getHash());
+		hc.retrieveHashFromMatImage(subject.getImage(), subject.getHash());
 	}
 
 	DECLDIR void setSubjectDescriptors(float *descs, int rows, int cols, int type) {
@@ -101,7 +101,7 @@ extern "C" {
 
 	DECLDIR void HashAndCompare(void *buf1, int h1, int w1, int *compareResult) {
 		fe.setImage(buf1, h1, w1);
-		//hc.compare(subject.getHash(), fe.getImage());
+		hc.compare(subject.getHash(), fe.getImage());
 		//test_one<PHash>("PHash", subject.getImage(), fe.getImage());
 	}
 

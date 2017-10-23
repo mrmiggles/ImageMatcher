@@ -2,7 +2,6 @@
   Detector.cpp
   FeatureExtractor.cpp
 FeatureExtractor.cpp(118): warning C4018: '<': signed/unsigned mismatch
-  HashComparitor.cpp
   ImageMatcher.cpp
   Matcher.cpp
 Matcher.cpp(141): warning C4018: '<': signed/unsigned mismatch
@@ -17,9 +16,9 @@ Matcher.cpp(196): warning C4244: 'argument': conversion from 'int' to 'float', p
   MatchResult.cpp
   Subject.cpp
   dllmain.cpp
-     Creating library C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.lib and object C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.exp
+     Creating library C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.lib and object C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.exp
   Generating code
-  All 645 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 653 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.dll
-  ImageMatcher.vcxproj -> C:\Users\299490\Documents\Git\ImageMatcher\Release\ImageMatcher.pdb (Full PDB)
+  ImageMatcher.vcxproj -> C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.dll
+  ImageMatcher.vcxproj -> C:\Users\Miguel\Documents\Git\ImageMatcher\Release\ImageMatcher.pdb (Full PDB)
