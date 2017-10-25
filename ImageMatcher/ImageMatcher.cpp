@@ -17,6 +17,7 @@ extern "C" {
 		detector = Detector::getDetector(type);
 	}
 
+	/* Set Matcher type */
 	DECLDIR void setMatcher(int type) {
 		matcher.setMatcher(type);
 	}
@@ -81,6 +82,7 @@ extern "C" {
 	DECLDIR void setSubjectImage(void *buf, int h, int w) {
 		subject.setImage(buf, h, w);
 		hc.retrieveHashFromMatImage(subject.getImage(), subject.getHash());
+		//cout << "subject image hash " << subject.getHash() << endl;
 	}
 
 	DECLDIR void setSubjectDescriptors(float *descs, int rows, int cols, int type) {
@@ -99,14 +101,24 @@ extern "C" {
 		fe.setImage(buf, h, w);
 	}
 
-	DECLDIR void HashAndCompare(void *buf1, int h1, int w1, int *compareResult) {
+
+	/* Functions to compare hashes */
+	DECLDIR void HashAndCompare(void *buf1, int h1, int w1, double *compareResult) {
 		fe.setImage(buf1, h1, w1);
-		hc.compare(subject.getHash(), fe.getImage());
+		hc.compare(*subject.getHash(), fe.getImage(), compareResult);
 		//test_one<PHash>("PHash", subject.getImage(), fe.getImage());
 	}
 
+	/*Function to compare two previously computed hashes stored in the DB */
+	DECLDIR void comparePrecomputedHashes(int* hash1, int* hash2, double *result) {
 
-	/* Testing Function for comparing two images */
+		Mat h1 = cv::Mat(1, 8, 0, &hash1);
+		Mat h2 = cv::Mat(1, 8, 0, *hash2);
+
+		hc.compareHashes(h1, h2, result);
+	}
+
+	/* Testing Function for comparing hashes of two images */
 	DECLDIR void CompareImageHash(void *buf1, int h1, int w1, void *buf2, int h2, int w2) {
 		FeatureExtractor im1;
 		im1.setImage(buf1, h1, w1);
@@ -114,11 +126,12 @@ extern "C" {
 		FeatureExtractor im2;
 		im2.setImage(buf2, h2, w2);
 
-		test_one<PHash>("PHash", im1.getImage(), im2.getImage());
+		hc.compareImages(im1.getImage(), im2.getImage());
+		//test_one<PHash>("PHash", im1.getImage(), im2.getImage());
 	}
 
 
-	
+	/* Testing Function for comparing descriptors of two images */
 	DECLDIR void testMatching(void *buf1, int h1, int w1, void *buf2, int h2, int w2, int *goodMatches) {
 		
 		MatchResult mr; //hold some match result numbers

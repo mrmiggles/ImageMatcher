@@ -13,8 +13,8 @@ Mat& Subject::getImage()
 	return image;
 }
 
-Mat& Subject::getHash() {
-	return hash;
+Mat* Subject::getHash() {
+	return &hash;
 }
 
 void Subject::setHash(const Mat &h)

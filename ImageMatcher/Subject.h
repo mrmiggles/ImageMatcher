@@ -6,7 +6,7 @@ public:
 	void setImage(void *buf, int h, int w);
 	Mat& getImage();
 
-	Mat & getHash();
+	Mat* getHash();
 
 	void setHash(const Mat &h);
 	void setKeypoints(vector<cv::KeyPoint> kp);
