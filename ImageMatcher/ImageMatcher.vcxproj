@@ -149,8 +149,6 @@
   <ItemGroup>
     <ClInclude Include="Detector.h" />
     <ClInclude Include="FeatureExtractor.h" />
-    <ClInclude Include="HashCompare.h" />
-    <ClInclude Include="HashComparitor.h" />
     <ClInclude Include="Matcher.h" />
     <ClInclude Include="MatchResult.h" />
     <ClInclude Include="stdafx.h" />

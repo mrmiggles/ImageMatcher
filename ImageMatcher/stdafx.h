@@ -37,8 +37,6 @@
 #include "Matcher.h"
 #include "MatchResult.h"
 #include "Subject.h"
-#include "HashCompare.h"
-#include "HashComparitor.h"
 
 using namespace std;
 using namespace cv;
